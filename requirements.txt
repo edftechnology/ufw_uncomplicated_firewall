@@ -1,0 +1,2 @@
+# Este repositório documenta a instalação do UFW pelo apt.
+# Não há dependências Python para instalar via pip.

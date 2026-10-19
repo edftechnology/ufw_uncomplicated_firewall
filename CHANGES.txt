@@ -2,6 +2,11 @@
 Histórico de Revisões/Versões
 ==============================
 
+**Revisão 1** - 18/10/2026
+- Atualização do guia de instalação do `UFW` via `apt` no `Linux Ubuntu`.
+- Correção dos metadados herdados de outros projetos.
+  - Autor: Eden Denis
+
 Incluir a(s) revisão(ões/versão(ões) em ordem da mais atual para a mais antiga,
 pois trata-se de uma prática para não poluir o arquivo `README.md` e, ao mesmo tempo,
 facilitar quando incluir uma nova revisão/versão.

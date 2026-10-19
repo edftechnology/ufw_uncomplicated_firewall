@@ -1,32 +1,29 @@
-# Como instalar/configurar/usar para o `UFW (Uncomplicated Firewall)` no `Linux Ubuntu`
+# Como instalar/configurar/usar o `UFW (Uncomplicated Firewall)` no `Linux Ubuntu`
 
 ## Resumo
 
-Neste documento estão contidos os principais comandos e configurações para instalar/configurar/usar o `UFW (Uncomplicated Firewall)` no `Linux Ubuntu`.
+Este documento apresenta como instalar pelo `apt`, configurar e verificar o `UFW (Uncomplicated Firewall)` no `Linux Ubuntu`.
 
 ## _Abstract_
 
-_This document contains the main commands and settings to configure/install/use the `UFW (UNcomplicated Firewall)` on `Linux Ubuntu`._
+_This document explains how to install `UFW (Uncomplicated Firewall)` with `apt`, configure it, and check its status on `Linux Ubuntu`._
+
 
 ## Descrição
 
-O `UFW (Uncomplicated Firewall)` é uma _interface_ de usuário para o sistema de
-_firewall_ `iptables` do `Linux`, projetada para tornar a gestão de regras de
-_firewall_ mais simples e acessível. Ele permite que usuários, mesmo aqueles
-com conhecimento limitado em segurança de rede, configurem regras de _firewall_
-de maneira fácil e intuitiva, oferecendo um método direto para habilitar ou 
-desabilitar o tráfego de rede em sistemas `Ubuntu` e outras distribuições 
-`Linux` baseadas no `Debian`.
+O `UFW (Uncomplicated Firewall)` é a ferramenta padrão de configuração de _firewall_ do `Linux Ubuntu`. Ele fornece uma interface simples para administrar regras de filtragem de tráfego de rede no sistema `netfilter` do núcleo do `Linux`. O pacote pode ser instalado pelo `apt`; após a instalação, o _firewall_ permanece desativado até ser habilitado.
 
-## 1. Configurar/Instalar/Usar o `UFW (Uncomplicated Firewall)` no `Linux Ubuntu` (caso ainda não esteja instalado) [1]
 
-Para ativar o _firewall_ no `Ubuntu 22.04 LTS`, você pode usar o `UFW (Uncomplicated Firewall)`, que é uma interface mais amigável para gerenciar o iptables, o sistema de _firewall_ do `Linux`. Siga as etapas abaixo:
+## 1. Configurar/instalar/usar o `UFW (Uncomplicated Firewall)` no `Linux Ubuntu` [1][2]
+
+O `UFW` é a ferramenta padrão de configuração de _firewall_ do `Linux Ubuntu`. O pacote será instalado pelo `apt`; antes de habilitar o _firewall_, revisar as regras necessárias para os serviços usados neste computador.
 
 1. Abrir o `Terminal Emulator`. Você pode fazer isso pressionando:
 
     ```bash
     Ctrl + Alt + T
     ```
+
 
 2. Certifique-se de que seu sistema esteja limpo e atualizado.
 
@@ -70,37 +67,47 @@ Para ativar o _firewall_ no `Ubuntu 22.04 LTS`, você pode usar o `UFW (Uncompli
     sudo apt full-upgrade -y
     ```
 
-3. **Instale o `UFW` com o comando**:
+3. Instalar o `UFW` pelo `apt`:
 
     ```bash
     sudo apt install ufw -y
     ```
 
-4. **Ativar o UFW**: Para ativar o `UFW`, execute o comando:
+4. Se estiver conectado ao computador por `SSH`, permitir a porta usada pela conexão antes de habilitar o _firewall_. Para a porta padrão `22`:
+
+    ```bash
+    sudo ufw allow 22/tcp
+    ```
+
+5. Habilitar o `UFW`:
 
     ```bash
     sudo ufw enable
     ```
 
-5. **Verificar o status do `UFW`**: Você pode verificar o status do `UFW` a qualquer momento usando:
+6. Verificar o status do `UFW`:
 
     ```bash
-    sudo ufw status
+    sudo ufw status verbose
     ```
 
-Depois de ativar o `UFW`, você pode começar a adicionar regras para permitir ou bloquear tráfego específico, conforme necessário.
+Para permitir outros serviços, adicionar as regras correspondentes antes de habilitar o `UFW`. Consulte a documentação oficial para exemplos e detalhes.
 
 
-## 2. Código completo para configurar/instalar/usar
+## 1.1 Código completo para configurar/instalar/usar
 
-Para configurar/instalar/usar o `ufw` no `Linux Ubuntu` sem precisar digitar linha por linha, você pode seguir estas etapas:
+Para instalar/configurar/usar o `UFW` no `Linux Ubuntu` em um único bloco de comandos, seguir estas etapas:
 
-1. Abrir o `Terminal Emulator`. Você pode fazer isso pressionando: `Ctrl + Alt + T`
+1. Abrir o `Terminal Emulator`. Você pode fazer isso pressionando:
 
-2. Digite o seguinte comando e pressione `Enter`:
-
+    ```bash
+    Ctrl + Alt + T
     ```
-    sudo apt clean                                                            ─╯
+
+2. Digitar os comandos abaixo e pressionar `Enter`:
+
+    ```bash
+    sudo apt clean
     sudo apt autoclean
     sudo apt autoremove -y
     sudo apt update
@@ -109,21 +116,25 @@ Para configurar/instalar/usar o `ufw` no `Linux Ubuntu` sem precisar digitar lin
     sudo apt list --upgradable
     sudo apt full-upgrade -y
     sudo apt install ufw -y
+    if [ -n "${SSH_CONNECTION:-}" ]; then sudo ufw allow 22/tcp; fi
     sudo ufw enable
-    sudo ufw status
+    sudo ufw status verbose
     ```
+
+Ao acessar o computador por `SSH`, conferir a porta usada pela conexão e ajustar a regra `22/tcp` no bloco se necessário. Adicionar também as regras para outros serviços antes de habilitar o `UFW`.
+
 
 ## Referências
 
 [1] OPENAI.
-**Ativar Firewall no Ubuntu.**
-Disponível em: <https://chat.openai.com/c/ccab59aa-3e70-465e-906d-59d7038ea632> (texto adaptado).
+**Instalar o `UFW (Uncomplicated Firewall)` no `linux ubuntu` pelo `terminal emulator`**.
+Disponível em: <https://chatgpt.com/g/g-p-6980caf949648191ad6acfcdbe590f9e-instalar/c/ccab59aa-3e70-465e-906d-59d7038ea632>.
 ChatGPT.
-Acessado em: 30/10/2023 11:11.
+Acessado em: 18/10/2026.
 
-[2] OPENAI.
-**Vs code: editor popular.**
-Disponível em: <https://chat.openai.com/c/b640a25d-f8e3-4922-8a3b-ed74a2657e42> (texto adaptado).
-ChatGPT.
-Acessado em: 30/10/2023 13:51.
+[2] CANONICAL.
+**Configurar o `ufw` no `linux ubuntu`**.
+Disponível em: <https://ubuntu.com/server/docs/how-to/security/firewalls/>.
+Documentação do Ubuntu Server.
+Acessado em: 18/10/2026.
 
